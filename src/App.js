@@ -43,29 +43,31 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <h1>Ma Todo List !</h1>
+    <div className="h-[100vh] text-center p-10 py-10 bg-gradient-to-r from-cyan-400 to-teal-800">
+      <h1 className="text-5xl text-teal-100 font-medium md:text-6xl">Ma Todo List !</h1>
 
       <input
         type="text"
-        placeholder="Add an item..."
+        placeholder="Ajouter un élément..."
         value={newItem}
         onChange={(e) => setNewItem(e.target.value)}
+        className="text-center my-20 rounded"
       />
 
-      <button onClick={() => addItem()}>Add</button>
+      <button onClick={() => addItem()} className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8">Ajouter</button>
 
       <ul>
         {items.map((item) => {
           return (
             <div>
-              <li key={item.id} onClick={() => setShowEdit(item.id)}>
+              <li key={item.id} onClick={() => setShowEdit(item.id)} className="text-white">
                 {item.value}
                 <button
-                  className="delete-button"
+                  className="delete-button bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8"
                   onClick={() => deleteItem(item.id)}
+
                 >
-                  ❌
+                  Supprimer
                 </button>
               </li>
             </div>
