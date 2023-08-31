@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
+  const savedItems = localStorage.getItem('items');
+  const initialItems = savedItems ? JSON.parse(savedItems) : [];
   const [newItem, setNewItem] = useState("");
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(initialItems);
 
-  const [showEdit, setShowEdit] = useState(-1);
-  const [updatedText, setUpdatedText] = useState("");
 
   function addItem() {
     if (!newItem) {
@@ -42,6 +42,10 @@ function App() {
     setItems((oldList) => [...oldList, newItem]);
   }
 
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(items));
+  }, [items]);
+
   return (
     <div className="h-[100vh] text-center p-10 py-10 bg-gradient-to-r from-cyan-400 to-teal-800">
       <h1 className="text-5xl text-teal-100 font-medium md:text-6xl">Ma Todo List !</h1>
@@ -60,7 +64,7 @@ function App() {
         {items.map((item) => {
           return (
             <div>
-              <li key={item.id} onClick={() => setShowEdit(item.id)} className="text-white">
+              <li key={item.id} className="text-white">
                 {item.value}
                 <button
                   className="delete-button bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8"
